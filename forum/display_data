@@ -1,0 +1,39 @@
+<!-- display section starts -->
+<section class="display" id="display">
+
+<h2 class="heading"> Display Data </h2>
+
+<div class="row">
+
+    <?php
+    // Include the database connection file
+    include 'dbConfig.php';
+
+    // Select data from the database
+    $sql = "SELECT name,email,message FROM forumMessage";
+    $result = $db->query($sql);
+
+    if (!$result) {
+        die("Error retrieving data: " . $db->error);
+    }
+
+    if ($result->num_rows > 0) {
+      while ($row = $result->fetch_assoc()) {
+          echo "<div class='card'>";
+          echo "<h3>" . $row['name'] . "</h3>";
+          echo "<p>Email: " . $row['email'] . "</p>";
+          echo "<p>Message: " . $row['message'] . "</p>";
+          echo "</div>";
+      }
+  } else {
+      echo "No data found";
+    }
+
+    // Close the database connection
+    $db->close();
+    ?>
+
+</div>
+
+</section>
+<!-- display section ends -->
